@@ -28,30 +28,37 @@ def save(lines):
 
 
 def add():
-    name = input('Enter a full name:')
+    name = input('Enter a full name:').lower()
     number = int(input('Enter a number: '))
     with open('Details.txt', 'a') as f:
-        lines = f'{name}, {number} \n'
+        lines = f'{name}: {number} \n'
         save(str(lines))
 
 
 def view():
     with open('Details.txt', 'r') as f:
         lines = f.readlines()
-        print(lines)
+        for line in lines:
+            line = line.strip() + '\n'
+            print(line)
 
 
 def find():
-    target = input('Enter the name: ')
+    target = input('Enter the name: ').lower()
     with open('Details.txt', 'r') as f:
         lines = f.readlines()
-        for index, line in enumerate(lines, start=1):
+        for line in lines:
             if target in line:
-                return line
+                contact = line.strip().split(': ')
+                if contact[0] == target:
+                    print(line)
+                    return line
+            else:
+                print('Find did not work.')
 
 
 def remove():
-    target = input('Enter the name: ')
+    target = input('Enter the name: ').lower()
     with open('Details.txt', 'r') as f:
         lines = f.readlines()
         for line in lines:
@@ -68,7 +75,7 @@ def modify():
     while True:
         if selection == '1':
             old_name = find()
-            new_name = input('Change to? ')
+            new_name = input('Change to? ').lower()
             with open('Details.txt', 'r') as f:
                 lines = f.readlines()
                 for index, line in enumerate(lines, start=1):
