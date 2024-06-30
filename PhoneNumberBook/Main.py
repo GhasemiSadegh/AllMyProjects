@@ -23,8 +23,9 @@
 #
 # Close the application gracefully
 def save(lines):
-    with open('Details.txt', 'a') as f:
-        f.write(lines)
+    with open('Details.txt', 'w') as f:
+        for line in lines:
+            f.write(line)
 
 
 def add():
@@ -32,7 +33,7 @@ def add():
     number = int(input('Enter a number: '))
     with open('Details.txt', 'a') as f:
         lines = f'{name}: {number} \n'
-        save(str(lines))
+        save(lines)
 
 
 def view():
@@ -44,7 +45,7 @@ def view():
 
 
 def find():
-    target = input('Enter the name: ').lower()
+    target = input('Enter the full name: ').lower()
     with open('Details.txt', 'r') as f:
         lines = f.readlines()
         for line in lines:
@@ -53,45 +54,57 @@ def find():
                 if contact[0] == target:
                     print(line)
                     return line
-            else:
-                print('Find did not work.')
+                else:
+                    print('Full name does not exist')
 
 
 def remove():
-    target = input('Enter the name: ').lower()
+    target = input('Enter the full name: ').lower()
     with open('Details.txt', 'r') as f:
         lines = f.readlines()
         for line in lines:
             if target in line:
-                lines.remove(line)
-                lines = f.readlines()
-                save(lines)
+                contact = line.strip().split(': ')
+                if contact[0] == target:
+                    lines.remove(line)
+                    save(lines)
 
 
 def modify():
-    selection = input('Modify a name or a number? '
+    selection = input('What to modify?\n'
                       '1. Name\n'
-                      '2. Number\n')
+                      '2. Number\n'
+                      'Here: ')
     while True:
         if selection == '1':
-            old_name = find()
-            new_name = input('Change to? ').lower()
+            old_name = input('Enter the full name: ').lower()
+            new_name = input('Enter the new full name: ').lower()
             with open('Details.txt', 'r') as f:
                 lines = f.readlines()
-                for index, line in enumerate(lines, start=1):
+                for line in lines:
                     if old_name in line:
-                        line = line.replace(old_name, new_name)
-                    f.write(line)
+                        contact = line.strip().split(': ')
+                        if contact[0] == old_name:
+                            new_line = f'{new_name}: {contact[1]}'
+                            lines.remove(line)
+                            lines.append(new_line)
+                            f'{save(lines)}\n'
+            break
 
         elif selection == '2':
-            old_num = find()
-            new_num = input('Change to? ')
+            old_name = input('Enter the full name: ').lower()
+            new_num= input('Enter the new  number: ')
             with open('Details.txt', 'r') as f:
                 lines = f.readlines()
-                for index, line in enumerate(lines, start=1):
-                    if old_num in line:
-                        line = line.replace(old_num, new_num)
-                    f.write(line)
+                for line in lines:
+                    if old_name in line:
+                        contact = line.strip().split(': ')
+                        if contact[0] == old_name:
+                            new_line = f'\n{old_name}: {new_num}'
+                            lines.remove(line)
+                            lines.append(new_line)
+                            f'{save(lines)}'
+            break
 
 
 while True:
