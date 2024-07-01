@@ -1,8 +1,8 @@
 import sqlite3
 
-connection = sqlite3.connect('table.db')
+connection = sqlite3.connect('example.db')
 cursor = connection.cursor()
-connection.execute('''
+cursor.execute('''
     CREATE TABLE IF NOT EXISTS tasks (
         id INTEGER PRIMARY KEY,
         name TEXT NOT NULL,
@@ -10,9 +10,18 @@ connection.execute('''
     )
 ''')
 
-connection.execute('''
-    INSERT INTO table (name, status)
+cursor.execute('''
+    INSERT INTO tasks (name, status)
     VALUES ('Buy groceries', 'pending')
 ''')
 connection.commit()
+
+print('save complete')
+
+cursor.execute('SELECT * FROM tasks')
+rows = cursor.fetchall()
+
+for row in rows:
+    print(row)
+
 connection.close()
