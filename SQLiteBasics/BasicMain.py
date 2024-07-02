@@ -1,5 +1,5 @@
 import sqlite3
-connection = sqlite3.connect('people.db')
+connection = sqlite3.connect('BasicMain.db')
 cursor = connection.cursor()
 cursor.execute('''
     CREATE TABLE IF NOT EXISTS age_table (
