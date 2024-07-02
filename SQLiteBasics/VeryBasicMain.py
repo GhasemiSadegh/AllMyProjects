@@ -24,4 +24,24 @@ rows = cursor.fetchall()
 for row in rows:
     print(row)
 
+cursor.execute('''
+    UPDATE tasks
+    SET status = 'completed'
+    WHERE name = 'Buy groceries'
+    ''')
+connection.commit()
+
+print('Database updated')
+
+cursor.execute('SELECT * FROM tasks')
+rows = cursor.fetchall()
+for row in rows:
+    print(row)
+
+cursor.execute('''
+    DELETE FROM tasks
+    WHERE name = 'Buy groceries'
+''')
+
+connection.commit()
 connection.close()
