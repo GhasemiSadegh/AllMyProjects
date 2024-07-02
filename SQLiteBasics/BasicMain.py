@@ -9,9 +9,15 @@ cursor.execute('''
     )
 ''')
 connection.commit()
-cursor.execute('''
+data = [(input('enter name: '), int(input('age:')))]
+
+cursor.executemany('''
     INSERT INTO age_table (name, age)
-    VALUES ('Ali', '23' )
-''')
+    VALUES (?, ?)
+''', data)
 connection.commit()
 
+cursor.execute('SELECT * FROM age_table')
+rows = cursor.fetchall()
+for row in rows:
+    print(row)
