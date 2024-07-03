@@ -21,12 +21,12 @@ conn.commit()
 
 
 while True:
-    choice = input('Please select: \n'
+    choice = input('\nPlease select: \n'
                    '1. Add Expense: \n'
-                   )
+                   '2. View All Expenses: \n')
 
-    category = input('1. Food, or 2. Beverage.')
     if choice == '1':
+        category = input('1. Food, or 2. Beverage.')
         if category == '1':
             data = ('Food', int(input('Amount?')))
             curs.execute('''
@@ -43,3 +43,10 @@ while True:
                     ''', data)
             conn.commit()
             break
+    elif choice == '2':
+        curs.execute('''
+        SELECT * FROM expenses''')
+        rows = curs.fetchall()
+        for row in rows:
+            print(row)
+    elif choice == '3':
