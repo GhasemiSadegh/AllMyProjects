@@ -5,6 +5,16 @@
 # Update an existing expense
 
 import sqlite3
+from datetime import datetime
+
+
+def date_validator():
+    user_date = input('Which date? Follow the format (yyyy-mm-dd)')
+    try:
+        datetime.strptime(user_date, '%Y-%m-%d')
+        return True
+    except ValueError:
+        print('Format not acceptable.')
 
 
 def row_reader():
@@ -18,6 +28,17 @@ def parameter_injector():
         SELECT * FROM expenses
         WHERE category = ?
         ''', (category,))
+
+
+def primary_data_inserter():
+    amount = int(input('Amount?'))
+    date = int(input('Date? format: yyyy-mm-dd'))
+    date_validator()
+    data = (amount, date)
+    curs.execute('''
+        INSERT INTO expenses (category, amount, date)
+        VALUES (?, ?, ?)
+        ''', data)
 
 
 print('Welcome')
@@ -38,23 +59,19 @@ while True:
     choice = input('\nPlease select: \n'
                    '1. Add Expense: \n'
                    '2. View All Expenses: \n'
-                   '3. Category Overview\n')
+                   '3. Category Overview\n'
+                   '4. Delete an Expense\n'
+                   '')
 
     if choice == '1':
         category = input('1. Food, or 2. Beverage.')
         if category == '1':
-            data = ('Food', int(input('Amount?')))
-            curs.execute('''
-                    INSERT INTO expenses (category, amount)
-                    VALUES (?, ?)
-                    ''', data)
+            category = 'Food'
+            primary_data_inserter()
             conn.commit()
         elif category == '2':
-            data = ('Beverages', int(input('Amount?')))
-            curs.execute('''
-                    INSERT INTO expenses (category, amount)
-                    VALUES (?, ?)
-                    ''', data)
+            category = 'Beverages'
+            primary_data_inserter()
             conn.commit()
     elif choice == '2':
         curs.execute('''
@@ -72,3 +89,12 @@ while True:
             category = 'Beverages'
             parameter_injector()
             row_reader()
+    elif choice == '4':
+        curs.execute('''
+            SELECT * FROM expenses''')
+        row_reader()
+        id_to_delete = input('Which id?')
+        curs.execute('''
+            DELETE FROM expenses
+            WHERE id = ?
+            ''', (id_to_delete,))
