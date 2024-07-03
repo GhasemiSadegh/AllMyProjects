@@ -10,10 +10,12 @@ from datetime import datetime
 
 def date_validator(date):
     try:
-        if datetime.strptime(date, '%Y-%m-%d'):
-            print('Expense added.')
+        datetime.strptime(date, '%Y-%m-%d')
+        print('Expense added')
+        return True
     except ValueError:
-        print('Format not acceptable.')
+        print('Wrong date format')
+        return False
 
 
 def row_reader():
@@ -27,20 +29,19 @@ def parameter_injector():
         SELECT * FROM expenses
         WHERE category = ?
         ''', (category,))
+    conn.commit()
 
 
 def primary_data_inserter():
     amount = int(input('Amount?'))
-    date = input('Date? format: yyyy-mm-dd')
-    date_validator(date)
-    data = (category, amount, date)
-    curs.execute('''
-        INSERT INTO expenses (category, amount, date)
-        VALUES (?, ?, ?)
-        ''', data)
+    date = input('Date? format: YYYY-MM-DD\n')
+    if date_validator(date):
+        data = (category, amount, date)
+        curs.execute('''
+            INSERT INTO expenses (category, amount, date)
+            VALUES (?, ?, ?)
+            ''', data)
 
-
-print('Welcome')
 
 conn = sqlite3.connect('MiniProj.db')
 curs = conn.cursor()
@@ -54,16 +55,18 @@ curs.execute('''
 ''')
 conn.commit()
 
-
+print('Welcome')
 while True:
     choice = input('\nPlease select: \n'
                    '1. Add Expense: \n'
                    '2. View All Expenses: \n'
                    '3. Category Overview\n'
                    '4. Delete an Expense\n'
-                   '')
+                   '5. Quit the App \n'
+                   'Here: '
+                   '') # needs to limit input
 
-    if choice == '1':
+    if choice == '1': # needs capacity for more categories
         category = input('Is it\n'
                          '1. Food\n'
                          'or\n'
@@ -86,18 +89,21 @@ while True:
                          '2. Beverages: \n')
         if category == '1':
             category = 'Food'
-            parameter_injector()
+            parameter_injector() # gets amount and date
             row_reader()
-        elif category == '2':
+        elif category == '2': # needs empty list msg
             category = 'Beverages'
             parameter_injector()
             row_reader()
-    elif choice == '4':
+    elif choice == '4': # needs continuous-sequence forcer
         curs.execute('''
             SELECT * FROM expenses''')
         row_reader()
-        id_to_delete = input('Which id?')
+        id_to_delete = input('Which id?') # needs id range validator
         curs.execute('''
             DELETE FROM expenses
             WHERE id = ?
             ''', (id_to_delete,))
+    elif choice == '5':
+        print('OK, bye.')
+        break
