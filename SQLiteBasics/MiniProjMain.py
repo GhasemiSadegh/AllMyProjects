@@ -8,11 +8,10 @@ import sqlite3
 from datetime import datetime
 
 
-def date_validator():
-    user_date = input('Which date? Follow the format (yyyy-mm-dd)')
+def date_validator(date):
     try:
-        datetime.strptime(user_date, '%Y-%m-%d')
-        return True
+        if datetime.strptime(date, '%Y-%m-%d'):
+            print('Expense added.')
     except ValueError:
         print('Format not acceptable.')
 
@@ -32,9 +31,9 @@ def parameter_injector():
 
 def primary_data_inserter():
     amount = int(input('Amount?'))
-    date = int(input('Date? format: yyyy-mm-dd'))
-    date_validator()
-    data = (amount, date)
+    date = input('Date? format: yyyy-mm-dd')
+    date_validator(date)
+    data = (category, amount, date)
     curs.execute('''
         INSERT INTO expenses (category, amount, date)
         VALUES (?, ?, ?)
@@ -49,7 +48,8 @@ curs.execute('''
     CREATE TABLE IF NOT EXISTS expenses (
         id INTEGER PRIMARY KEY,
         category TEXT NOT NULL,
-        amount TEXT NOT NULL
+        amount TEXT NOT NULL,
+        date TEXT NOT NULL
         )
 ''')
 conn.commit()
@@ -64,7 +64,10 @@ while True:
                    '')
 
     if choice == '1':
-        category = input('1. Food, or 2. Beverage.')
+        category = input('Is it\n'
+                         '1. Food\n'
+                         'or\n'
+                         '2. Beverage.\n')
         if category == '1':
             category = 'Food'
             primary_data_inserter()
