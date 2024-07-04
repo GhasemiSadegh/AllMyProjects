@@ -20,8 +20,11 @@ def date_validator(date):
 
 def row_reader():
     rows = curs.fetchall()
-    for row in rows:
-        print(row)
+    if not rows:
+        print('Data not available.')
+    else:
+        for row in rows:
+            print(row)
 
 
 def parameter_injector():
@@ -66,7 +69,7 @@ while True:
                    'Here: '
                    '') # needs to limit input
 
-    if choice == '1': # needs capacity for more categories
+    if choice == '1':
         category = input('Is it\n'
                          '1. Food\n'
                          'or\n'
@@ -89,9 +92,9 @@ while True:
                          '2. Beverages: \n')
         if category == '1':
             category = 'Food'
-            parameter_injector() # gets amount and date
+            parameter_injector()
             row_reader()
-        elif category == '2': # needs empty list msg
+        elif category == '2':
             category = 'Beverages'
             parameter_injector()
             row_reader()
