@@ -21,7 +21,7 @@ def date_validator(date):
 def row_reader():
     rows = curs.fetchall()
     if not rows:
-        print('Please create an expense for the category first.')
+        print('Please create an expense for this category first.')
     else:
         for row in rows:
             print(row)
@@ -113,27 +113,27 @@ while True:
     elif choice == '4':
         curs.execute('''
             SELECT * FROM expenses''')
+        conn.commit()
         rows = curs.fetchall()
-        for row in rows:
-            if not rows:
-                print('No expense.')
-            else:
-                curs.execute("SELECT id FROM expenses")
+        if not rows:
+            print('Please add at least one expense first.')
+        else:
+            curs.execute("SELECT id FROM expenses")
+            conn.commit()
+            rows = curs.fetchall()
+            ids = [row[0] for row in rows]
+            id_to_delete = int(input('Which id?'))
+            if id_to_delete in ids:
+                curs.execute('''
+                    DELETE FROM expenses
+                    WHERE id = ?
+                    ''', (id_to_delete,))
                 conn.commit()
-                rows = curs.fetchall()
-                ids = [row[0] for row in rows]
-                id_to_delete = int(input('Which id?'))
-                if id_to_delete in ids:
-                    curs.execute('''
-                        DELETE FROM expenses
-                        WHERE id = ?
-                        ''', (id_to_delete,))
-                    conn.commit()
-                    print(f'id: {id_to_delete} was removed.')
-                else:
-                    print('id does not exist.')
+                print(f'id: {id_to_delete} was removed.')
+            else:
+                print('id does not exist.')
     elif choice == '5':
-        print('OK, bye.')
+        print('OK, bye. 💋')
         break
 
 conn.close()
