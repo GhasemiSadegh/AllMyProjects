@@ -98,15 +98,21 @@ while True:
             category = 'Beverages'
             parameter_injector()
             row_reader()
-    elif choice == '4': # needs continuous-sequence forcer
+    elif choice == '4':
         curs.execute('''
             SELECT * FROM expenses''')
         row_reader()
-        id_to_delete = input('Which id?') # needs id range validator
-        curs.execute('''
-            DELETE FROM expenses
-            WHERE id = ?
-            ''', (id_to_delete,))
+        id_to_delete = int(input('Which id?'))
+        curs.execute("SELECT id FROM expenses")
+        rows = curs.fetchall()
+        ids = [row[0] for row in rows]
+        if id_to_delete in ids:
+            curs.execute('''
+                DELETE FROM expenses
+                WHERE id = ?
+                ''', (id_to_delete,))
+        else:
+            print('id not ok.')
     elif choice == '5':
         print('OK, bye.')
         break
