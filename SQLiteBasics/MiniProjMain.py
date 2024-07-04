@@ -21,7 +21,7 @@ def date_validator(date):
 def row_reader():
     rows = curs.fetchall()
     if not rows:
-        print('Data not available.')
+        print('Please create an expense for the category first.')
     else:
         for row in rows:
             print(row)
@@ -91,7 +91,11 @@ while True:
     elif choice == '2':
         curs.execute('''
         SELECT * FROM expenses''')
-        row_reader()
+        rows = curs.fetchall()
+        for row in rows:
+            print(row)
+        if not rows:
+            print('Please add an expense first.')
     elif choice == '3':
         category = input('Which category\n'
                          '1. Food:\n'
@@ -109,8 +113,8 @@ while True:
     elif choice == '4':
         curs.execute('''
             SELECT * FROM expenses''')
-        row_reader()
         id_to_delete = int(input('Which id?'))
+        row_reader() # list khali >> Data not available
         curs.execute("SELECT id FROM expenses")
         conn.commit()
         rows = curs.fetchall()
