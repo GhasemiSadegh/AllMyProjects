@@ -113,21 +113,25 @@ while True:
     elif choice == '4':
         curs.execute('''
             SELECT * FROM expenses''')
-        id_to_delete = int(input('Which id?'))
-        row_reader() # list khali >> Data not available
-        curs.execute("SELECT id FROM expenses")
-        conn.commit()
         rows = curs.fetchall()
-        ids = [row[0] for row in rows]
-        if id_to_delete in ids:
-            curs.execute('''
-                DELETE FROM expenses
-                WHERE id = ?
-                ''', (id_to_delete,))
-            conn.commit()
-            print(f'id: {id_to_delete} was removed.')
-        else:
-            print('id does not exist.')
+        for row in rows:
+            if not rows:
+                print('No expense.')
+            else:
+                curs.execute("SELECT id FROM expenses")
+                conn.commit()
+                rows = curs.fetchall()
+                ids = [row[0] for row in rows]
+                id_to_delete = int(input('Which id?'))
+                if id_to_delete in ids:
+                    curs.execute('''
+                        DELETE FROM expenses
+                        WHERE id = ?
+                        ''', (id_to_delete,))
+                    conn.commit()
+                    print(f'id: {id_to_delete} was removed.')
+                else:
+                    print('id does not exist.')
     elif choice == '5':
         print('OK, bye.')
         break
