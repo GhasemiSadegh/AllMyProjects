@@ -36,14 +36,17 @@ def parameter_injector():
 
 
 def primary_data_inserter():
-    amount = int(input('Amount?'))
-    date = input('Date? format: YYYY-MM-DD\n')
-    if date_validator(date):
-        data = (category, amount, date)
-        curs.execute('''
-            INSERT INTO expenses (category, amount, date)
-            VALUES (?, ?, ?)
-            ''', data)
+    try:
+        amount = int(input('Amount?'))
+        date = input('Date? format: YYYY-MM-DD\n')
+        if date_validator(date):
+            data = (category, amount, date)
+            curs.execute('''
+                INSERT INTO expenses (category, amount, date)
+                VALUES (?, ?, ?)
+                ''', data)
+    except ValueError:
+        print('Wrong input.')
 
 
 conn = sqlite3.connect('MiniProj.db')
@@ -82,6 +85,8 @@ while True:
             category = 'Beverages'
             primary_data_inserter()
             conn.commit()
+        else:
+            print('Only 1 or 2 is allowed.')
     elif choice == '2':
         curs.execute('''
         SELECT * FROM expenses''')
