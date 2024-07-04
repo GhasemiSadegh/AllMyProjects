@@ -45,6 +45,7 @@ def primary_data_inserter():
                 INSERT INTO expenses (category, amount, date)
                 VALUES (?, ?, ?)
                 ''', data)
+            conn.commit()
     except ValueError:
         print('Wrong input.')
 
@@ -103,12 +104,15 @@ while True:
             category = 'Beverages'
             parameter_injector()
             row_reader()
+        else:
+            print('Only 1 or 2 is allowed.')
     elif choice == '4':
         curs.execute('''
             SELECT * FROM expenses''')
         row_reader()
         id_to_delete = int(input('Which id?'))
         curs.execute("SELECT id FROM expenses")
+        conn.commit()
         rows = curs.fetchall()
         ids = [row[0] for row in rows]
         if id_to_delete in ids:
@@ -116,8 +120,12 @@ while True:
                 DELETE FROM expenses
                 WHERE id = ?
                 ''', (id_to_delete,))
+            conn.commit()
+            print(f'id: {id_to_delete} was removed.')
         else:
             print('id does not exist.')
     elif choice == '5':
         print('OK, bye.')
         break
+
+conn.close()
