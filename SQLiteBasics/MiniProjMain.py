@@ -112,7 +112,7 @@ while True:
                 WHERE id = ?
                 ''', (id_to_delete,))
         else:
-            print('id not ok.')
+            print('id does not exist.')
     elif choice == '5':
         print('OK, bye.')
         break
