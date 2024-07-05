@@ -48,3 +48,13 @@ curs.execute('''
     ''')
 conn.commit()
 conn.close()
+
+# To see all Reza's patients
+
+curs.execute('''
+    SELECT * FROM doctors
+    WHERE doctor = 'Reza'
+    ''')
+rows = curs.fetchall()
+list = [row for row in rows]
+print(list)
