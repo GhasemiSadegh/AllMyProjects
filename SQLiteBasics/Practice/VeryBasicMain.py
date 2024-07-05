@@ -1,6 +1,6 @@
 import sqlite3
 
-connection = sqlite3.connect('Practice/VeryBasic.db')
+connection = sqlite3.connect('VeryBasic.db')
 cursor = connection.cursor()
 cursor.execute('''
     CREATE TABLE IF NOT EXISTS tasks (
