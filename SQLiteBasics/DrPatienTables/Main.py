@@ -14,26 +14,37 @@ curs.execute('''
     )
     ''')
 conn.commit()
-curs.execute('''
-    INSERT INTO doctors (id, name, field)
-    values (1, 'Ali', 'skin')
-    ''')
-conn.commit()
-curs.execute('''
-    INSERT INTO doctors (id, name, field)
-    values (2, 'Reza', 'hair')
-    ''')
-conn.commit()
 
+hospital_doctors = [
+    (1, 'Ali', 'skin'),
+    (2, 'Reza', 'hair'),
+    (3, 'Sara', 'eyes')
+    ]
+def add_doctor
+for doctors in hospital_doctors:
+    curs.execute('''
+    INSERT INTO doctors (id, name, field)
+    VALUES (?, ?, ?)
+    ''', doctors)
+    conn.commit()
 
-print('Welcome')
+# Welcome menu
+
+print('Welcome:\n')
 menu = input('Choose: \n'
              '1. See doctors info\n'
              '2. Register as patient.\n'
              '3. Quit\n'
              'Here: ')
 if menu == '1':
+    curs.execute('''
+        SELECT * FROM doctors
+        ''')
+    conn.commit()
 
+    rows = curs.fetchall()
+    print([row for row in rows])
+    conn.commit()
 
 
 curs.execute('''
@@ -64,14 +75,4 @@ conn.commit()
 
 # To see all Reza's patients
 
-curs.execute('''
-    SELECT * FROM doctors
-    WHERE name = 'Reza'
-    ''')
-conn.commit()
 
-rows = curs.fetchall()
-list = [row for row in rows]
-print(list)
-
-conn.commit()
