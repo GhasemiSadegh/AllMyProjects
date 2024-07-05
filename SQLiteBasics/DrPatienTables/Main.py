@@ -4,7 +4,7 @@ conn = sqlite3.connect('Hospital.db')
 conn.execute('PRAGMA foreign_keys = ON')
 curs = conn.cursor()
 
-# Creating two doctors
+# Creating initial doctors
 
 curs.execute('''
     CREATE TABLE IF NOT EXISTS doctors(
@@ -20,13 +20,21 @@ hospital_doctors = [
     (2, 'Reza', 'hair'),
     (3, 'Sara', 'eyes')
     ]
-def add_doctor
-for doctors in hospital_doctors:
-    curs.execute('''
-    INSERT INTO doctors (id, name, field)
-    VALUES (?, ?, ?)
-    ''', doctors)
-    conn.commit()
+
+
+def add_doctor():
+    for doctors in hospital_doctors:
+        try:
+            curs.execute('''
+            INSERT INTO doctors (id, name, field)
+            VALUES (?, ?, ?)
+            ''', doctors)
+            conn.commit()
+        except sqlite3.IntegrityError: # to avoid crash when running multiple times
+            pass
+
+
+add_doctor()
 
 # Welcome menu
 
@@ -41,6 +49,21 @@ if menu == '1':
         SELECT * FROM doctors
         ''')
     conn.commit()
+elif menu == '2':
+    name = input('name')
+    disease = input('Complaint is about:\n'
+                    '1. my skin\n'
+                    '2. my hair\n'
+                    '3. my eyes\n'
+                    'Here: ')
+    if disease == '1':
+        pass
+    elif disease == '2':
+        pass
+    elif disease == '3':
+        pass
+    else:
+        print('Only 1 to 3 is allowed.')
 
     rows = curs.fetchall()
     print([row for row in rows])
