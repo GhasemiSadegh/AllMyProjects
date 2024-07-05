@@ -1,7 +1,10 @@
 import sqlite3
+
 conn = sqlite3.connect('Hospital.db')
 conn.execute('PRAGMA foreign_keys = ON')
 curs = conn.cursor()
+
+# Creating two doctors
 
 curs.execute('''
     CREATE TABLE IF NOT EXISTS doctors(
@@ -21,6 +24,17 @@ curs.execute('''
     values (2, 'Reza', 'hair')
     ''')
 conn.commit()
+
+
+print('Welcome')
+menu = input('Choose: \n'
+             '1. See doctors info\n'
+             '2. Register as patient.\n'
+             '3. Quit\n'
+             'Here: ')
+if menu == '1':
+
+
 
 curs.execute('''
     CREATE TABLE IF NOT EXISTS patients(
@@ -47,14 +61,17 @@ curs.execute('''
     values (103, 'Pam', 'burnt', 1)
     ''')
 conn.commit()
-conn.close()
 
 # To see all Reza's patients
 
 curs.execute('''
     SELECT * FROM doctors
-    WHERE doctor = 'Reza'
+    WHERE name = 'Reza'
     ''')
+conn.commit()
+
 rows = curs.fetchall()
 list = [row for row in rows]
 print(list)
+
+conn.commit()
