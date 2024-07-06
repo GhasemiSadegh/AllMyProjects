@@ -112,15 +112,17 @@ while True:
         print('\nHere is a list of available doctors:')
         row_printer()
     elif menu == '2':
-        name = str(input('Your name please:\n'))
+
         while True:
+            name = str(input('Your name please:\n'))
             if name.isalpha():
-                problem = input('Complaint is about:\n'
-                                '1. my skin\n'
-                                '2. my hair\n'
-                                '3. my eyes\n'
-                                'Here: ')
+
                 while True:
+                    problem = input('Complaint is about:\n'
+                                    '1. my skin\n'
+                                    '2. my hair\n'
+                                    '3. my eyes\n'
+                                    'Here: ')
                     if problem == '1':
                         disease = 'skin problem'
                         decorate()
@@ -134,9 +136,17 @@ while True:
                         decorate()
                         break
                     else:
-                        print('Only 1 to 3 are allowed.')
+                        print('1 to 3 only.')
+                break
+
             else:
                 print('Alphabet only.')
+
+
+
+
+
+
     elif menu == '3':
         print('App closed.')
         break
