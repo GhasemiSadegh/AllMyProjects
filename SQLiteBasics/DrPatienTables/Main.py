@@ -4,6 +4,19 @@ conn = sqlite3.connect('Hospital.db')
 conn.execute('PRAGMA foreign_keys = ON')
 curs = conn.cursor()
 
+# Table for patients
+
+
+curs.execute('''
+    CREATE TABLE IF NOT EXISTS patients(
+    id              INTEGER     PRIMARY KEY,
+    name            TEXT        NOT NULL,
+    disease         TEXT        NOT NULL,
+    doctors_id      INTEGER     NOT NULL,
+    FOREIGN KEY(doctors_id)     REFERENCES doctors(id)
+    )
+    ''')
+
 # Creating initial doctors
 
 curs.execute('''
@@ -21,6 +34,15 @@ hospital_doctors = [
     (3, 'Sara', 'eyes')
     ]
 
+# Functions
+
+
+def add_patient(x):
+    conn.execute('''
+    INSERT INTO patients (id, name, disease, doctors_id)
+    VALUES (?, ?, ?, ?)
+    ''', x)
+
 
 def add_doctor():
     for doctors in hospital_doctors:
@@ -36,6 +58,23 @@ def add_doctor():
 
 add_doctor()
 
+
+def row_printer():
+    rows = curs.fetchall()
+    for row in rows:
+        print(row)
+
+
+# def dr_finder(num_received):
+#     conn.execute('''
+#     SELECT * FROM doctors
+#     WHERE id = ?
+#     ''', num_received)
+#     rows = curs.fetchall()
+#     for row in rows:
+#         return row
+
+
 # Welcome menu
 
 print('Welcome:\n')
@@ -43,25 +82,41 @@ menu = input('Choose: \n'
              '1. See doctors info\n'
              '2. Register as patient.\n'
              '3. Quit\n'
-             'Here: ')
+             'Here: \n')
 if menu == '1':
     curs.execute('''
         SELECT * FROM doctors
         ''')
     conn.commit()
+    print('Doctors available:\n')
+    row_printer()
 elif menu == '2':
-    name = input('name')
+    name = input('Your name please:\n')
     disease = input('Complaint is about:\n'
                     '1. my skin\n'
                     '2. my hair\n'
                     '3. my eyes\n'
                     'Here: ')
     if disease == '1':
-        pass
+        id = 101
+        doctors_id = 1
+        disease = 'skin problem'
+        x = (id, name, disease, doctors_id)
+        add_patient(x)
+
+
+
+
+
+
+
+
+
+
     elif disease == '2':
-        pass
+        dr_finder(disease)
     elif disease == '3':
-        pass
+        dr_finder(disease)
     else:
         print('Only 1 to 3 is allowed.')
 
@@ -70,31 +125,23 @@ elif menu == '2':
     conn.commit()
 
 
-curs.execute('''
-    CREATE TABLE IF NOT EXISTS patients(
-    id              INTEGER     PRIMARY KEY,
-    name            TEXT        NOT NULL,
-    disease         TEXT        NOT NULL,
-    doctors_id      INTEGER     NOT NULL,
-    FOREIGN KEY(doctors_id)     REFERENCES doctors(id)
-    )
-    ''')
-conn.commit()
-curs.execute('''
-    INSERT INTO patients (id, name, disease, doctors_id)
-    values (101, 'Sam', 'bald', 2)
-    ''')
-conn.commit()
-curs.execute('''
-    INSERT INTO patients (id, name, disease, doctors_id)
-    values (102, 'Kok', 'rash', 1)
-    ''')
-conn.commit()
-curs.execute('''
-    INSERT INTO patients (id, name, disease, doctors_id)
-    values (103, 'Pam', 'burnt', 1)
-    ''')
-conn.commit()
+
+# conn.commit()
+# curs.execute('''
+#     INSERT INTO patients (id, name, disease, doctors_id)
+#     values (101, 'Sam', 'bald', 2)
+#     ''')
+# conn.commit()
+# curs.execute('''
+#     INSERT INTO patients (id, name, disease, doctors_id)
+#     values (102, 'Kok', 'rash', 1)
+#     ''')
+# conn.commit()
+# curs.execute('''
+#     INSERT INTO patients (id, name, disease, doctors_id)
+#     values (103, 'Pam', 'burnt', 1)
+#     ''')
+# conn.commit()
 
 # To see all Reza's patients
 
