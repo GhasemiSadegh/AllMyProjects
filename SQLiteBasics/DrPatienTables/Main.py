@@ -65,6 +65,17 @@ def row_printer():
         print(row)
 
 
+# def id_creator():
+#     id = 100
+#     id_list = []
+#     if id not in id_list:
+#         id_list.append(id)
+#         return id
+#     else:
+#         id += 1
+#         id_list.append(id)
+#         return id
+
 # def dr_finder(num_received):
 #     conn.execute('''
 #     SELECT * FROM doctors
@@ -98,23 +109,18 @@ elif menu == '2':
                     '3. my eyes\n'
                     'Here: ')
     if disease == '1':
-        id = 101
+        id = id_creator()
         doctors_id = 1
         disease = 'skin problem'
         x = (id, name, disease, doctors_id)
         add_patient(x)
-
-
-
-
-
-
-
-
-
-
     elif disease == '2':
-        dr_finder(disease)
+        id = id_creator()
+        doctors_id = 2
+        disease = 'hair problem'
+        x = (id, name, disease, doctors_id)
+        add_patient(x)
+
     elif disease == '3':
         dr_finder(disease)
     else:
