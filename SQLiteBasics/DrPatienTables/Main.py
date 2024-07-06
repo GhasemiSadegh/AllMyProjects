@@ -42,6 +42,7 @@ def add_patient(x):
     INSERT INTO patients (name, disease, doctors_id)
     VALUES (?, ?, ?)
     ''', x)
+    conn.commit()
 
 
 def add_doctor():
@@ -63,6 +64,14 @@ def row_printer():
     rows = curs.fetchall()
     for row in rows:
         print(row)
+
+
+def decorate():
+    doctors_id = int(problem)
+    x = (name, disease, doctors_id)
+    add_patient(x)
+    print('your are registered.')
+
 
 
 # def id_creator():
@@ -103,50 +112,21 @@ if menu == '1':
     row_printer()
 elif menu == '2':
     name = input('Your name please:\n')
-    disease = input('Complaint is about:\n'
+    problem = input('Complaint is about:\n'
                     '1. my skin\n'
                     '2. my hair\n'
                     '3. my eyes\n'
                     'Here: ')
-    if disease == '1':
-        doctors_id = 1
+    if problem == '1':
         disease = 'skin problem'
-        x = (name, disease, doctors_id)
-        add_patient(x)
-    elif disease == '2':
-        doctors_id = 2
-        disease = 'hair problem'
-        x = (name, disease, doctors_id)
-        add_patient(x)
+        decorate()
 
-    elif disease == '3':
-        dr_finder(disease)
+    elif problem == '2':
+        disease = 'hair problem'
+        decorate()
+
+    elif problem == '3':
+        disease = 'eye problem'
+        decorate()
     else:
         print('Only 1 to 3 is allowed.')
-
-    rows = curs.fetchall()
-    print([row for row in rows])
-    conn.commit()
-
-
-
-# conn.commit()
-# curs.execute('''
-#     INSERT INTO patients (id, name, disease, doctors_id)
-#     values (101, 'Sam', 'bald', 2)
-#     ''')
-# conn.commit()
-# curs.execute('''
-#     INSERT INTO patients (id, name, disease, doctors_id)
-#     values (102, 'Kok', 'rash', 1)
-#     ''')
-# conn.commit()
-# curs.execute('''
-#     INSERT INTO patients (id, name, disease, doctors_id)
-#     values (103, 'Pam', 'burnt', 1)
-#     ''')
-# conn.commit()
-
-# To see all Reza's patients
-
-
