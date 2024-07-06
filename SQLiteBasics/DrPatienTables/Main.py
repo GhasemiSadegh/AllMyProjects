@@ -29,10 +29,10 @@ curs.execute('''
 conn.commit()
 
 hospital_doctors = [
-    (1, 'Ali', 'skin'),
-    (2, 'Reza', 'hair'),
-    (3, 'Sara', 'eyes')
-]
+    (1, 'Iman Astronaut', 'skin'),
+    (2, 'Karim Workaholic', 'hair'),
+    (3, 'Davood Survey', 'eyes')
+    ]
 
 
 # Functions
@@ -116,7 +116,6 @@ while True:
         while True:
             name = str(input('Your name please:\n'))
             if name.isalpha():
-
                 while True:
                     problem = input('Complaint is about:\n'
                                     '1. my skin\n'
@@ -141,12 +140,6 @@ while True:
 
             else:
                 print('Alphabet only.')
-
-
-
-
-
-
     elif menu == '3':
         print('App closed.')
         break
