@@ -112,8 +112,8 @@ while True:
         print('\nHere is a list of available doctors:')
         row_printer()
     elif menu == '2':
-        name = input('Your name please:\n')
         while True:
+            name = str(input('Your name please:\n'))
             if name.isalpha():
                 problem = input('Complaint is about:\n'
                                 '1. my skin\n'
