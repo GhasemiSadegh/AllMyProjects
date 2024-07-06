@@ -103,34 +103,42 @@ while True:
                  '1. See doctors info\n'
                  '2. Register as patient.\n'
                  '3. Quit\n'
-                 'Here: \n')
+                 'Here: ')
     if menu == '1':
         curs.execute('''
             SELECT * FROM doctors
             ''')
         conn.commit()
-        print('Doctors available:\n')
+        print('\nHere is a list of available doctors:')
         row_printer()
     elif menu == '2':
         name = input('Your name please:\n')
-        problem = input('Complaint is about:\n'
-                        '1. my skin\n'
-                        '2. my hair\n'
-                        '3. my eyes\n'
-                        'Here: ')
-        if problem == '1':
-            disease = 'skin problem'
-            decorate()
+        while True:
+            if name.isalpha():
+                problem = input('Complaint is about:\n'
+                                '1. my skin\n'
+                                '2. my hair\n'
+                                '3. my eyes\n'
+                                'Here: ')
+                if problem == '1':
+                    disease = 'skin problem'
+                    decorate()
 
-        elif problem == '2':
-            disease = 'hair problem'
-            decorate()
+                elif problem == '2':
+                    disease = 'hair problem'
+                    decorate()
 
-        elif problem == '3':
-            disease = 'eye problem'
-            decorate()
-        else:
-            print('Only 1 to 3 is allowed.')
+                elif problem == '3':
+                    disease = 'eye problem'
+                    decorate()
+                else:
+                    print('Only 1 to 3 is allowed.')
+                    break
+            else:
+                print('Alphabet only.')
     elif menu == '3':
         print('App closed.')
         break
+    else:
+        print('Only 1 to 3 is allowed.\n'
+              'Try again!')
