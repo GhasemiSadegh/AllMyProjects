@@ -39,8 +39,8 @@ hospital_doctors = [
 
 def add_patient(x):
     conn.execute('''
-    INSERT INTO patients (id, name, disease, doctors_id)
-    VALUES (?, ?, ?, ?)
+    INSERT INTO patients (name, disease, doctors_id)
+    VALUES (?, ?, ?)
     ''', x)
 
 
@@ -109,16 +109,14 @@ elif menu == '2':
                     '3. my eyes\n'
                     'Here: ')
     if disease == '1':
-        id = id_creator()
         doctors_id = 1
         disease = 'skin problem'
-        x = (id, name, disease, doctors_id)
+        x = (name, disease, doctors_id)
         add_patient(x)
     elif disease == '2':
-        id = id_creator()
         doctors_id = 2
         disease = 'hair problem'
-        x = (id, name, disease, doctors_id)
+        x = (name, disease, doctors_id)
         add_patient(x)
 
     elif disease == '3':
