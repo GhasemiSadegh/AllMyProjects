@@ -32,7 +32,8 @@ hospital_doctors = [
     (1, 'Ali', 'skin'),
     (2, 'Reza', 'hair'),
     (3, 'Sara', 'eyes')
-    ]
+]
+
 
 # Functions
 
@@ -53,7 +54,7 @@ def add_doctor():
             VALUES (?, ?, ?)
             ''', doctors)
             conn.commit()
-        except sqlite3.IntegrityError: # to avoid crash when running multiple times
+        except sqlite3.IntegrityError:  # to avoid crash when running multiple times
             pass
 
 
@@ -71,7 +72,6 @@ def decorate():
     x = (name, disease, doctors_id)
     add_patient(x)
     print('your are registered.')
-
 
 
 # def id_creator():
@@ -98,35 +98,39 @@ def decorate():
 # Welcome menu
 
 print('Welcome:\n')
-menu = input('Choose: \n'
-             '1. See doctors info\n'
-             '2. Register as patient.\n'
-             '3. Quit\n'
-             'Here: \n')
-if menu == '1':
-    curs.execute('''
-        SELECT * FROM doctors
-        ''')
-    conn.commit()
-    print('Doctors available:\n')
-    row_printer()
-elif menu == '2':
-    name = input('Your name please:\n')
-    problem = input('Complaint is about:\n'
-                    '1. my skin\n'
-                    '2. my hair\n'
-                    '3. my eyes\n'
-                    'Here: ')
-    if problem == '1':
-        disease = 'skin problem'
-        decorate()
+while True:
+    menu = input('\nPlease choose from the list: \n'
+                 '1. See doctors info\n'
+                 '2. Register as patient.\n'
+                 '3. Quit\n'
+                 'Here: \n')
+    if menu == '1':
+        curs.execute('''
+            SELECT * FROM doctors
+            ''')
+        conn.commit()
+        print('Doctors available:\n')
+        row_printer()
+    elif menu == '2':
+        name = input('Your name please:\n')
+        problem = input('Complaint is about:\n'
+                        '1. my skin\n'
+                        '2. my hair\n'
+                        '3. my eyes\n'
+                        'Here: ')
+        if problem == '1':
+            disease = 'skin problem'
+            decorate()
 
-    elif problem == '2':
-        disease = 'hair problem'
-        decorate()
+        elif problem == '2':
+            disease = 'hair problem'
+            decorate()
 
-    elif problem == '3':
-        disease = 'eye problem'
-        decorate()
-    else:
-        print('Only 1 to 3 is allowed.')
+        elif problem == '3':
+            disease = 'eye problem'
+            decorate()
+        else:
+            print('Only 1 to 3 is allowed.')
+    elif menu == '3':
+        print('App closed.')
+        break
