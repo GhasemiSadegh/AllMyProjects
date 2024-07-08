@@ -68,7 +68,7 @@ def add_patient(x):
     conn.commit()
 
 
-def add_patient():
+def add_patient_display():
     name = str(input('Your name please:\n'))
     if name.isalpha():
         while True:
@@ -79,15 +79,15 @@ def add_patient():
                             'Here: ')
             if problem == '1':
                 disease = 'skin problem'
-                decorate()
+                add_patient()
                 break
             elif problem == '2':
                 disease = 'hair problem'
-                decorate()
+                add_patient()
                 break
             elif problem == '3':
                 disease = 'eye problem'
-                decorate()
+                add_patient()
                 break
             else:
                 print('1 to 3 only.')
@@ -95,7 +95,12 @@ def add_patient():
         print('Alphabet only.')
 
 
-def decorate():
+def add_patient():
+    conn.execute('''
+        INSERT INTO patients (name, disease, doctors_id)
+        VALUES (?, ?, ?)
+        ''', x)
+    conn.commit()
     doctors_id = int(problem)
     x = (name, disease, doctors_id)
     add_patient(x)
@@ -157,5 +162,4 @@ while running:
                          '2. Register as patient.\n'
                          '3. Quit\n'
                          'Here: ')
-
     menu_dict.get(menu_display, invalid_input)()
