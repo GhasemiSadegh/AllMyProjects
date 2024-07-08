@@ -32,18 +32,10 @@ hospital_doctors = [
     (1, 'Iman Astronaut', 'skin'),
     (2, 'Karim Workaholic', 'hair'),
     (3, 'Davood Survey', 'eyes')
-    ]
+]
 
 
 # Functions
-
-
-def add_patient(x):
-    conn.execute('''
-    INSERT INTO patients (name, disease, doctors_id)
-    VALUES (?, ?, ?)
-    ''', x)
-    conn.commit()
 
 
 def add_doctor():
@@ -67,11 +59,65 @@ def row_printer():
         print(row)
 
 
+
+def add_patient(x):
+    conn.execute('''
+    INSERT INTO patients (name, disease, doctors_id)
+    VALUES (?, ?, ?)
+    ''', x)
+    conn.commit()
+
+
+def add_patient():
+    name = str(input('Your name please:\n'))
+    if name.isalpha():
+        while True:
+            problem = input('Complaint is about:\n'
+                            '1. my skin\n'
+                            '2. my hair\n'
+                            '3. my eyes\n'
+                            'Here: ')
+            if problem == '1':
+                disease = 'skin problem'
+                decorate()
+                break
+            elif problem == '2':
+                disease = 'hair problem'
+                decorate()
+                break
+            elif problem == '3':
+                disease = 'eye problem'
+                decorate()
+                break
+            else:
+                print('1 to 3 only.')
+    else:
+        print('Alphabet only.')
+
+
 def decorate():
     doctors_id = int(problem)
     x = (name, disease, doctors_id)
     add_patient(x)
     print('your are registered.')
+
+
+def see_doctors():
+    curs.execute('''
+                SELECT * FROM doctors
+                ''')
+    print('\nHere is a list of available doctors:')
+    row_printer()
+
+
+def quit_app():
+    running = False
+    print('Only 1 to 3 is allowed.\n'
+          'Try again!')
+
+
+def invalid_input():
+    print('Only 1 to 3 is allowed')
 
 
 # def id_creator():
@@ -97,52 +143,19 @@ def decorate():
 
 # Welcome menu
 
+running = True
 print('Welcome:\n')
-while True:
-    menu = input('\nPlease choose from the list: \n'
-                 '1. See doctors info\n'
-                 '2. Register as patient.\n'
-                 '3. Quit\n'
-                 'Here: ')
-    if menu == '1':
-        curs.execute('''
-            SELECT * FROM doctors
-            ''')
-        conn.commit()
-        print('\nHere is a list of available doctors:')
-        row_printer()
-    elif menu == '2':
+menu_dict = {
+    '1': see_doctors,
+    '2': add_patient,
+    '3': quit_app
+}
 
-        while True:
-            name = str(input('Your name please:\n'))
-            if name.isalpha():
-                while True:
-                    problem = input('Complaint is about:\n'
-                                    '1. my skin\n'
-                                    '2. my hair\n'
-                                    '3. my eyes\n'
-                                    'Here: ')
-                    if problem == '1':
-                        disease = 'skin problem'
-                        decorate()
-                        break
-                    elif problem == '2':
-                        disease = 'hair problem'
-                        decorate()
-                        break
-                    elif problem == '3':
-                        disease = 'eye problem'
-                        decorate()
-                        break
-                    else:
-                        print('1 to 3 only.')
-                break
+while running:
+    menu_display = input('\nPlease choose from the list: \n'
+                         '1. see doctors info\n'
+                         '2. Register as patient.\n'
+                         '3. Quit\n'
+                         'Here: ')
 
-            else:
-                print('Alphabet only.')
-    elif menu == '3':
-        print('App closed.')
-        break
-    else:
-        print('Only 1 to 3 is allowed.\n'
-              'Try again!')
+    menu_dict.get(menu_display, invalid_input)()
