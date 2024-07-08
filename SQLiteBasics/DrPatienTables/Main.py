@@ -69,16 +69,19 @@ def add_patient_display():
                             '3. my eyes\n'
                             'Here: ')
             if problem == '1':
+                doctors_id = 1
                 disease = 'skin problem'
-                add_patient(x)
+                add_patient(name, disease, doctors_id)
                 break
             elif problem == '2':
                 disease = 'hair problem'
-                add_patient()
+                doctors_id = 2
+                add_patient(name, disease, doctors_id)
                 break
             elif problem == '3':
+                doctors_id = 3
                 disease = 'eye problem'
-                add_patient()
+                add_patient(name, disease, doctors_id)
                 break
             else:
                 print('1 to 3 only.')
@@ -86,14 +89,13 @@ def add_patient_display():
         print('Alphabet only.')
 
 
-def add_patient(x):
+def add_patient(name, disease, doctors_id):
     x = (name, disease, doctors_id)
-    doctors_id = int(problem)
-
     conn.execute('''
         INSERT INTO patients (name, disease, doctors_id)
         VALUES (?, ?, ?)
         ''', x)
+    conn.commit()
     print('your are registered.')
 
 
@@ -106,9 +108,9 @@ def see_doctors():
 
 
 def quit_app():
+    global running
     running = False
-    print('Only 1 to 3 is allowed.\n'
-          'Try again!')
+    print('bye')
 
 
 def invalid_input():
@@ -142,7 +144,7 @@ running = True
 print('Welcome:\n')
 menu_dict = {
     '1': see_doctors,
-    '2': add_patient,
+    '2': add_patient_display,
     '3': quit_app
 }
 
@@ -153,3 +155,5 @@ while running:
                          '3. Quit\n'
                          'Here: ')
     menu_dict.get(menu_display, invalid_input)()
+
+conn.close()
