@@ -59,15 +59,6 @@ def row_printer():
         print(row)
 
 
-
-def add_patient(x):
-    conn.execute('''
-    INSERT INTO patients (name, disease, doctors_id)
-    VALUES (?, ?, ?)
-    ''', x)
-    conn.commit()
-
-
 def add_patient_display():
     name = str(input('Your name please:\n'))
     if name.isalpha():
@@ -79,7 +70,7 @@ def add_patient_display():
                             'Here: ')
             if problem == '1':
                 disease = 'skin problem'
-                add_patient()
+                add_patient(x)
                 break
             elif problem == '2':
                 disease = 'hair problem'
@@ -95,15 +86,14 @@ def add_patient_display():
         print('Alphabet only.')
 
 
-def add_patient():
+def add_patient(x):
+    x = (name, disease, doctors_id)
+    doctors_id = int(problem)
+
     conn.execute('''
         INSERT INTO patients (name, disease, doctors_id)
         VALUES (?, ?, ?)
         ''', x)
-    conn.commit()
-    doctors_id = int(problem)
-    x = (name, disease, doctors_id)
-    add_patient(x)
     print('your are registered.')
 
 
