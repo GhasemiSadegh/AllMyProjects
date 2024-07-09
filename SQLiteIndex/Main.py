@@ -1,5 +1,11 @@
 import sqlite3
 
+
+def given_name():
+    name = input('name: ')
+    return name
+
+
 conn = sqlite3.connect('data.db')
 curs = conn.cursor()
 conn.commit()
@@ -23,4 +29,7 @@ curs.executemany('''
 ''', x)
 conn.commit()
 
-conn.close()
+curs.execute('CREATE INDEX index_people ON people (name)')
+conn.commit()
+curs.execute('SELECT * FROM people WHERE name = ?', (given_name(),))
+print(curs.fetchall())
