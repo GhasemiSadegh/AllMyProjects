@@ -60,33 +60,35 @@ def row_printer():
 
 
 def add_patient_display():
-    name = str(input('Your name please:\n'))
-    if name.isalpha():
-        while True:
-            problem = input('Complaint is about:\n'
-                            '1. my skin\n'
-                            '2. my hair\n'
-                            '3. my eyes\n'
-                            'Here: ')
-            if problem == '1':
-                doctors_id = 1
-                disease = 'skin problem'
-                add_patient(name, disease, doctors_id)
-                break
-            elif problem == '2':
-                disease = 'hair problem'
-                doctors_id = 2
-                add_patient(name, disease, doctors_id)
-                break
-            elif problem == '3':
-                doctors_id = 3
-                disease = 'eye problem'
-                add_patient(name, disease, doctors_id)
-                break
-            else:
-                print('1 to 3 only.')
-    else:
-        print('Alphabet only.')
+    while True:
+        name = str(input('Your name please:\n'))
+        if name.isalpha():
+            while True:
+                problem = input('Complaint is about:\n'
+                                '1. my skin\n'
+                                '2. my hair\n'
+                                '3. my eyes\n'
+                                'Here: ')
+                if problem == '1':
+                    doctors_id = 1
+                    disease = 'skin problem'
+                    add_patient(name, disease, doctors_id)
+                    break
+                elif problem == '2':
+                    disease = 'hair problem'
+                    doctors_id = 2
+                    add_patient(name, disease, doctors_id)
+                    break
+                elif problem == '3':
+                    doctors_id = 3
+                    disease = 'eye problem'
+                    add_patient(name, disease, doctors_id)
+                    break
+                else:
+                    print('1 to 3 only.')
+            break
+        else:
+            print('Alphabet only.')
 
 
 def add_patient(name, disease, doctors_id):
@@ -138,15 +140,14 @@ def invalid_input():
 #         return row
 
 
-# Welcome menu
+# Encapsulating by using a dictionary
 
 running = True
-print('Welcome:\n')
 menu_dict = {
     '1': see_doctors,
     '2': add_patient_display,
     '3': quit_app
-}
+    }
 
 while running:
     menu_display = input('\nPlease choose from the list: \n'
