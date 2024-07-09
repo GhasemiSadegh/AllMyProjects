@@ -30,5 +30,7 @@ while True:
             VALUES (?, ?)
         ''', (name_email()))
         conn.commit()
+        print('user added.')
+        break
     except sqlite3.IntegrityError:
         print('This email is already registered, please Enter a new one:')
