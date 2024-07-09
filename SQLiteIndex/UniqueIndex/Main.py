@@ -9,18 +9,22 @@ conn.execute('''
     email TEXT NOT NULL
     )
 ''')
-while True:
-    try:
-        cursor.execute('CREATE UNIQUE INDEX email_unique_index ON people(email)')
-    except sqlite3.OperationalError:
-       pass
-    break
 
 
 def name_email():
     name_input = input('Enter your name: ')
     email_input = input('Enter your email : ')
     return name_input, email_input
+
+
+cursor.execute('CREATE UNIQUE INDEX IF NOT EXISTS email_unique_index ON people(email)')
+# Etra piece of code
+# while True:
+#     try:
+#         cursor.execute('CREATE UNIQUE INDEX email_unique_index ON people(email)')
+#     except sqlite3.OperationalError:
+#        pass
+#     break
 
 
 while True:
