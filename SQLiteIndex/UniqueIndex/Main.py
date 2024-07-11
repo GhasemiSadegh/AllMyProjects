@@ -18,13 +18,19 @@ def name_email():
 
 
 cursor.execute('CREATE UNIQUE INDEX IF NOT EXISTS email_unique_index ON people(email)')
-# Etra piece of code
-# while True:
-#     try:
-#         cursor.execute('CREATE UNIQUE INDEX email_unique_index ON people(email)')
-#     except sqlite3.OperationalError:
-#        pass
-#     break
+
+
+def check_index_usage():
+    cursor.execute('''
+        EXPLAIN QUERY PLAN
+        INSERT INTO people(name, email)
+        VALUES (?, ?)
+    ''', (name_email()))
+
+    # Fetch and print the query plan
+    query_plan = cursor.fetchall()
+    for line in query_plan:
+        print(line)
 
 
 while True:
