@@ -18,6 +18,13 @@ def name_email():
 
 
 cursor.execute('CREATE UNIQUE INDEX IF NOT EXISTS email_unique_index ON people(email)')
+# line 22 to 27 instead of 20! Stupid.
+# while True:
+#     try:
+#         cursor.execute('CREATE UNIQUE INDEX email_unique_index ON people(email)')
+#     except sqlite3.OperationalError:
+#        pass
+#     break
 
 
 def check_index_usage():
