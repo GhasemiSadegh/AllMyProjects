@@ -50,7 +50,7 @@ def primary_data_inserter():
         print('Wrong input.')
 
 
-conn = sqlite3.connect('Practice/MiniProj.db')
+conn = sqlite3.connect('MiniProj.db')
 curs = conn.cursor()
 curs.execute('''
     CREATE TABLE IF NOT EXISTS expenses (
