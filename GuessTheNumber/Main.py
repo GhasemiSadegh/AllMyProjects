@@ -38,4 +38,3 @@ while i < total_guess:
 
 
 
-
