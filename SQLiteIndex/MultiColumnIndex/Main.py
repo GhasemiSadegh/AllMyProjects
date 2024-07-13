@@ -12,7 +12,9 @@ curs.execute('''
 ''')
 
 curs.execute('''
-    CREATE INDEX IF NOT EXISTS idx_cid_date  ON my_shop (customer_id, order_date) ''')
+    CREATE INDEX IF NOT EXISTS idx_cid_date  
+    ON my_shop (customer_id, order_date) 
+''')
 
 x = [
     (101, '2023-01-15', 150.75),
@@ -32,7 +34,8 @@ curs.executemany('''
     VALUES (?, ?, ?)
 ''', x)
 con.commit()
-curs.execute('''SELECT * FROM my_shop
+curs.execute('''
+            SELECT * FROM my_shop
             WHERE customer_id = 101
             ORDER BY order_date
 ''')
