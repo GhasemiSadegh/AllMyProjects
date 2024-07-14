@@ -1,9 +1,5 @@
 from collections import deque
 
-"""FIFO for standard
-    LIFO for VIP
-    Prio for Urgent"""
-
 
 class Queue:
     def __init__(self):
@@ -12,11 +8,11 @@ class Queue:
         self.priority_queue = []
 
     def book_ticket(self, customer_name, customer_type):
-        if customer_type == '1':
+        if customer_type == 'Standard account':
             self.fifo_queue.append(customer_name)
-        elif customer_type == "2":
+        elif customer_type == "Bronze account":
             self.lifo_queue.appendleft(customer_name)
-        elif customer_type == '3':
+        elif customer_type == 'Diamond account':
             priority = int(input("your priority from 1 to 3 and 1 is the highest\n "
                                  "Here: "))
             self.priority_queue.append((customer_name, priority))
@@ -24,18 +20,20 @@ class Queue:
 
     def next_ticket(self):
         if self.fifo_queue:
-            return self.fifo_queue.popleft(), '1. Standard account'
+            return self.fifo_queue.popleft(), 'Standard account'
         elif self.lifo_queue:
-            return self.lifo_queue.popleft(), '2. Bronze account'
+            return self.lifo_queue.popleft(), 'Bronze account'
         elif self.priority_queue:
-            return self.priority_queue.pop(0)[0], '3. Diamond account'
+            return self.priority_queue.pop(0)[0], 'Diamond account'
+        else:
+            return None, None
 
     def get_all_customers(self):
         all_customers = []
         all_customers.extend([(name, 'Standard Account') for name in self.fifo_queue])
         all_customers.extend([(name, 'Bronze Account') for name in self.lifo_queue])
         all_customers.extend([(name, 'Diamond Account') for name in self.priority_queue])
-        return all_customers
+        print(all_customers)
 
 
 print('Welcome')
@@ -49,15 +47,18 @@ def main():
                        '2. Next\n'
                        '3. Show the queue\n'
                        '4. Quit\n'
-                       'Here: ')
+                       'Here: '
+                       )
+
         if choice == '1':
             cs_name = input('Your name: ')
             print(f'Hi {cs_name}. What type of account do you have?\n'
                   f'Here: ')
-            cs_type = input('''
-            1. Standard Account
-            2. Bronze Account
-            3. Diamond Account''')
+            cs_type = input('Standard Account\n'
+                            'Bronze Account \n'
+                            'Diamond Account\n'
+                            'Here: '
+                            )
             instance.book_ticket(cs_name, cs_type)
         elif choice == "2":
             customer, customer_type = instance.next_ticket() # customer?
@@ -70,6 +71,9 @@ def main():
         elif choice == '4':
             print('Ok, bye')
             break
+        else:
+            print('Invalid input.')
 
 
-main()
+if __name__ == '__main__':
+    main()
