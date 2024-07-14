@@ -28,8 +28,6 @@ for item in tuple_list:
 while not q_prio.empty():
     print(q_prio.get())
 
-while not q_prio.empty():
+while not q_prio.empty(): # NO MORE QUEUE AVAILABLE
     print(q_prio.get()[0])
 
-while not q_prio.empty():
-    print(q_prio.get()[1])
