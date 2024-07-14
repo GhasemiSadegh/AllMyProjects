@@ -17,3 +17,13 @@ for num in nums:
     q_reverse.put(num)
 
 print(q_reverse.get())
+
+"""Priority Queue"""
+q_prio = queue.PriorityQueue()
+tuple_list = [(1, 'hi'), (0, 'why'), (4, 'die')]
+
+for item in tuple_list:
+    q_prio.put(item)
+
+while not q_prio.empty():
+    print(q_prio.get())
