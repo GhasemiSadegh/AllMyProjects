@@ -1,8 +1,11 @@
-from collections import deque
+import queue
 
 """"Learning Advanced Data Structures"""
 
-my_dict = {1: 2, 3: 4}
-my_dict[5] = 6
-print(my_dict)
-my_list = [1, 2, 3, 4, 5, 99, -1]
+q = queue.Queue()
+nums = [2, 4, 6, 8, 10]
+for num in nums:
+    q.put(num)
+
+print(q.get())
+print(q.get())
