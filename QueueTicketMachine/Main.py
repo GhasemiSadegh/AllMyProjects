@@ -39,18 +39,21 @@ class Queue:
 
 
 print('Welcome')
-choice = input('Select:'
-               '1. Check in'
-               '2. Next'
-               '3. Show the queue'
-               '4. Quit')
 
 
 def main():
     instance = Queue()
     while True:
-        cs_name = input('Your name: ')
+        choice = input('Select:\n'
+                       '1. Check in\n'
+                       '2. Next\n'
+                       '3. Show the queue\n'
+                       '4. Quit\n'
+                       'Here: ')
         if choice == '1':
+            cs_name = input('Your name: ')
+            print(f'Hi {cs_name}. What type of account do you have?\n'
+                  f'Here: ')
             cs_type = input('''
             1. Standard Account
             2. Bronze Account
@@ -67,3 +70,6 @@ def main():
         elif choice == '4':
             print('Ok, bye')
             break
+
+
+main()
