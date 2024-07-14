@@ -4,7 +4,7 @@ import queue
 """First In First Out, FIFO"""
 
 q = queue.Queue()
-nums = [2, 4, 6, 8, 10]
+nums = [12, 2, 4, 6, 8, 10]
 for num in nums:
     q.put(num)
 
@@ -27,3 +27,9 @@ for item in tuple_list:
 
 while not q_prio.empty():
     print(q_prio.get())
+
+while not q_prio.empty():
+    print(q_prio.get()[0])
+
+while not q_prio.empty():
+    print(q_prio.get()[1])
