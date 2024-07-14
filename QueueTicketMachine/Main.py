@@ -22,3 +22,14 @@ class QueueTicketMachine:
             self.priority_queue.append((customer_name, priority))
             self.priority_queue.sort(key=lambda x: x[1], reverse=True)
 
+
+def display_menu():
+    print('Welcome to ....')
+    print('1. Check in a customer')
+    print('2. See the tickets')
+    print('3. Serve a next customer')
+    print('4. Exit')
+
+
+running = True
+def
