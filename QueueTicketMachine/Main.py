@@ -12,24 +12,31 @@ class QueueTicketMachine:
         self.priority_queue = []
 
     def book_ticket(self, customer_name, customer_type):
-        if customer_type == 'FIFO':
+        if customer_type == 'Standard':
             self.fifo_queue.append(customer_name)
-        if customer_type == "LIFO":
+        if customer_type == "VIP":
             self.lifo_queue.appendleft(customer_name)
-        if customer_type == 'PRIORITY':
+        if customer_type == 'Urgent':
             priority = int(input("your priority from 1 to 3 and 1 is the highest\n "
                                  "Here: "))
             self.priority_queue.append((customer_name, priority))
             self.priority_queue.sort(key=lambda x: x[1], reverse=True)
 
-
-def display_menu():
-    print('Welcome to ....')
-    print('1. Check in a customer')
-    print('2. See the tickets')
-    print('3. Serve a next customer')
-    print('4. Exit')
+        def serve_next():
+            if self.priority_queue:
+                pass
 
 
-running = True
-def
+print('Welcome')
+choice = input('Select:'
+               '1. check in')
+
+customer_name = input('Your name: ')
+
+while True:
+
+    if choice == '1':
+
+        customer_type = input('''
+        1. ''')
+
