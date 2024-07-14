@@ -1,3 +1,5 @@
+"""in this module we are practicing pandas"""
+
 import pandas as pd
 
 title_column = {
