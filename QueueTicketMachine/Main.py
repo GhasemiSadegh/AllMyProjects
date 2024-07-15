@@ -36,11 +36,12 @@ class Queue:
         print(all_customers)
 
 
+instance = Queue()
 print('Welcome')
 
 
 def main():
-    instance = Queue()
+
     while True:
         choice = input('Select:\n'
                        '1. Check in\n'
