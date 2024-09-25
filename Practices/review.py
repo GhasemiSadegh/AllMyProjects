@@ -5,11 +5,30 @@
 #         odd_list.append(num)
 # print(odd_list)
 
-def is_even(num):
-    if num % 2 == 0:
-        return False
-    return True
+# def is_even(num):
+#     if num % 2 == 0:
+#         return False
+#     return True
+#
+#
+# is_even(2)
 
 
-is_even(2)
+# integer = 1
+# string = str(integer)
+# flt = float(integer)
+# print(type(flt))
+# print(type(string))
+# data = bool
+# print(type(data()))
 
+nums = [1, 2]
+print(type(nums))
+
+dict = {"ali": 22, "sadegh": 33}
+print(type(dict))
+tpl = (1, 2, 3, 4)
+print(type(tpl))
+x = {1, 1, 2, 3}
+print(type(x))
+print(x)
