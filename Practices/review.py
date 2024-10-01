@@ -41,3 +41,11 @@
 #     print(i+i)
 #     print(x[0])
 #     print(x[1])
+# def name_getter(name):
+#     print(f"Your name is: {name}")
+#
+#
+# the_name = input('Name?')
+# name_getter(the_name)
+
+
