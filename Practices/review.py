@@ -51,14 +51,23 @@
 # name_getter(the_name)
 
 
-class Cars:
-    def __init__(self, brand: str, year: int):
-        self.brand = brand
-        self.year = year
+# class Cars:
+#     def __init__(self, brand: str, year: int):
+#         self.brand = brand
+#         self.year = year
+#
+#     def welcome(self):
+#         print(f"This is the brand: {self.brand}")
+#
+#
+# car1 = Cars("BMW", 2024)
+# car1.welcome()
 
-    def welcome(self):
-        print(f"This is the brand: {self.brand}")
-
-
-car1 = Cars("BMW", 2024)
-car1.welcome()
+try:
+    num = int(input("Enter a number: "))
+    result = 10/num
+    print(f"The result is {result}")
+except ZeroDivisionError:
+    print("Zero is not acceptable.")
+except ValueError:
+    print("Only numbers are allowed.")
