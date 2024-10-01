@@ -22,13 +22,22 @@
 # data = bool
 # print(type(data()))
 
-nums = [1, 2]
-print(type(nums))
+# nums = [1, 2]
+# print(type(nums))
+#
+# dict = {"ali": 22, "sadegh": 33}
+# print(type(dict))
+# tpl = (1, 2, 3, 4)
+# print(type(tpl))
+# x = {1, 1, 2, 3}
+# print(type(x))
+# print(x)
 
-dict = {"ali": 22, "sadegh": 33}
-print(type(dict))
-tpl = (1, 2, 3, 4)
-print(type(tpl))
-x = {1, 1, 2, 3}
-print(type(x))
-print(x)
+# for i in range(0, 10):
+#     print(i)
+#
+# x = [0, 1]
+# for i in x:
+#     print(i+i)
+#     print(x[0])
+#     print(x[1])
