@@ -41,6 +41,8 @@
 #     print(i+i)
 #     print(x[0])
 #     print(x[1])
+
+
 # def name_getter(name):
 #     print(f"Your name is: {name}")
 #
@@ -49,3 +51,14 @@
 # name_getter(the_name)
 
 
+class Cars:
+    def __init__(self, brand: str, year: int):
+        self.brand = brand
+        self.year = year
+
+    def welcome(self):
+        print(f"This is the brand: {self.brand}")
+
+
+car1 = Cars("BMW", 2024)
+car1.welcome()
