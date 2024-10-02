@@ -88,3 +88,22 @@
 # while i > 2:
 #     print(i)
 #     i += 1
+import random
+
+
+def secret_num():
+    secret_num = random.randint(0, 100)
+    attempts = 0
+    while True:
+        guess_num = int(input("num?"))
+
+        attempts += 1
+        if guess_num > secret_num:
+            print("Lower!")
+        elif guess_num < secret_num:
+            print("Higher!")
+        else:
+            print("Bingo!")
+            break
+
+secret_num()
