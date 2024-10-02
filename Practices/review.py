@@ -63,11 +63,28 @@
 # car1 = Cars("BMW", 2024)
 # car1.welcome()
 
-try:
-    num = int(input("Enter a number: "))
-    result = 10/num
-    print(f"The result is {result}")
-except ZeroDivisionError:
-    print("Zero is not acceptable.")
-except ValueError:
-    print("Only numbers are allowed.")
+# try:
+#     num = int(input("Enter a number: "))
+#     result = 10/num
+#     print(f"The result is {result}")
+# except ZeroDivisionError:
+#     print("Zero is not acceptable.")
+# except ValueError:
+#     print("Only numbers are allowed.")
+
+# a = int(input("?"))
+# if a == 1:
+#     print('ok')
+# elif a == 2:
+#     print('not ok')
+# else:
+#     print('not found.')
+# i = 3
+# while i < 10:
+#     if i % 2 == 0:
+#         print(i)
+#     i += 1
+#
+# while i > 2:
+#     print(i)
+#     i += 1
